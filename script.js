@@ -1,5 +1,7 @@
 //your JS code here. If required.
 const output = document.getElementById("output");
+const errorDiv = document.getElementById("error");
+const loading = document.getElementById("loading");
 const btn = document.getElementById("download-images-button");
 
 const images = [
@@ -14,21 +16,21 @@ const img=new Image();
 		resolve(img);
 	}
 	img.onerror =()=>{
-		reject(new Error("Failed to load image"));
+		reject(new Error(`Failed to load image ${url}`));
 	}
 	img.src = url;
 }
 
 
-Promise.all([download(images[0]),download(images[1]),
-			download(images[2])]).then((data)=>{
-             data.forEach((element,index)=>{
-		let image=document.createElement("img");
-		img.src=element;
-		output.appendChild(image);
+Promise.all([download(images[0].url),
+			 download(images[1].url),
+			download(images[2].url)]).then((data)=>{
+             data.forEach((element)=>{
+		
+		output.appendChild(element);
 			 });
 			}).catch((err)=>{
-	ouput.innerText="message rejected";
+	ouput.innerText=err.message;
 			})
 
 
