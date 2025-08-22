@@ -33,6 +33,6 @@ Promise.all([download(images[0].url),
 	output.innerText=err.message;
 			})
 
-
+btn.addEventListener("click",download);
 
 
