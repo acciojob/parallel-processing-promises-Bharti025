@@ -10,7 +10,8 @@ const images = [
   { url: "https://picsum.photos/id/239/200/300" },
 ];
 
-function download(url)=>{
+const download=(url)=>{
+	return new Promise((resolve,reject)=>{
 const img=new Image();
 	img.onload=()=>{
 		resolve(img);
@@ -19,18 +20,17 @@ const img=new Image();
 		reject(new Error(`Failed to load image ${url}`));
 	}
 	img.src = url;
+});
 }
-
 
 Promise.all([download(images[0].url),
 			 download(images[1].url),
 			download(images[2].url)]).then((data)=>{
              data.forEach((element)=>{
-		
-		output.appendChild(element);
+		  output.appendChild(element);
 			 });
 			}).catch((err)=>{
-	ouput.innerText=err.message;
+	output.innerText=err.message;
 			})
 
 
